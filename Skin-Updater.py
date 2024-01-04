@@ -52,6 +52,38 @@ while newSlot == None:
         newSlot = None
 
 
+print("[***DEBUG***]:\nPath: "+path)
+print("currentSlot: "+currentSlot)
+print("newSlot: "+newSlot)
+
+print("The files in this folder are:")
+print( os.listdir("./"))
+
+# Manipulate each folder
+#==============================================================
+
+# All switch conditions
+# 
+# 1 - Character Folder: The folder is named c0x
+# 2 - UI Files:         The file ends with _0x.bntx
+# 3 - Sound Files:      The file ends in _c0x
+# 4 - Config File:      The config.json
+
+# Note. If it's a folder with the c0x name you don't need to go deeper
+# Bonus Note: Kind of an unnecessary optimization tbh
+
+
+# Update the patterns based on user input
+#---------------------------------------------------------------
+oldFolderName = "c0"+currentSlot
+newFolderName = "c0"+newSlot
+
+configName = "config.json"
+
+# Note: only apply these to the last 7 characters of the file name
+uiCharaPattern = re.compile("0\d\.bntx") 
+soundPattern = re.compile("c0\d\.nus3audio")
+
 print("\n========================================")
 print("            End of Program")
 print("========================================")
