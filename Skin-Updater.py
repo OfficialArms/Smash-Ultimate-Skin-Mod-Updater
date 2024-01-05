@@ -51,11 +51,6 @@ while newSlot == None:
         print("\""+newSlot+"\" is not valid input. Must be a number between [0-7]\n")
         newSlot = None
 
-
-print("[***DEBUG***]:\nPath: "+path)
-print("currentSlot: "+currentSlot)
-print("newSlot: "+newSlot)
-
 # Manipulate each folder
 #==============================================================
 
@@ -72,7 +67,11 @@ print("newSlot: "+newSlot)
 
 # Update the patterns based on user input
 #---------------------------------------------------------------
-oldFolderName = "c0"+currentSlot
+if autoRename:
+    oldFolderPattern = re.compile("c0[0-7]")
+else: 
+    oldFolderPattern = re.compile("c0"+currentSlot)
+    
 newFolderName = "c0"+newSlot
 
 configName = "config.json"
@@ -81,14 +80,24 @@ configName = "config.json"
 if autoRename: 
     uiCharaPattern = re.compile("0\d\.bntx")  
 else:
-    uiCharaPattern = re.compile("0"+oldFolderName+".bntx")
+    uiCharaPattern = re.compile("0"+currentSlot+".bntx")
 
 if autoRename:
     soundPattern = re.compile("c0\d\.nus3audio") 
 else:  
-    uiCharaPattern = re.compile("c0"+oldFolderName+".nus3audio")
+    soundPattern = re.compile("c0"+currentSlot+".nus3audio")
 
 
+print("\n[***DEBUG***]:\nPath: "+path)
+print("currentSlot: "+currentSlot)
+print("newSlot: "+newSlot)
+print("autoRename: "+str(autoRename)+"\n")
+
+print("---Patterns: ")
+print("oldFolderPattern: "+str(oldFolderPattern))
+print("newFolderName: "+str(newFolderName))
+print("uiCharaPattern: "+str(uiCharaPattern))
+print("soundPattern: "+str(soundPattern))
 print("\n========================================")
 print("            End of Program")
 print("========================================")
