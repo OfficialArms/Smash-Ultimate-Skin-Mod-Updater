@@ -8,7 +8,6 @@
 # 3 - Sound Files    
 # 4 - Config File 
 
-
 import os
 import re
 
@@ -22,7 +21,6 @@ autoRename = False
 
 # Main
 #============================================================
-
 
 # Get input from the user on what
 #  values they want to change and where to change them
@@ -82,16 +80,16 @@ else:
     soundPattern = re.compile("c0"+currentSlot+".nus3audio")
 
 
-print("\n[***DEBUG***]:\nPath: "+path)
-print("currentSlot: "+currentSlot)
-print("newSlot: "+newSlot)
-print("autoRename: "+str(autoRename)+"\n")
+# print("\n[***DEBUG***]:\nPath: "+path)
+# print("currentSlot: "+currentSlot)
+# print("newSlot: "+newSlot)
+# print("autoRename: "+str(autoRename)+"\n")
 
-print("---Patterns: ")
-print("oldFolderPattern: "+str(oldFolderPattern))
-print("newFolderName: "+str(newFolderName))
-print("uiCharaPattern: "+str(uiCharaPattern))
-print("soundPattern: "+str(soundPattern)+"\n")
+# print("---Patterns: ")
+# print("oldFolderPattern: "+str(oldFolderPattern))
+# print("newFolderName: "+str(newFolderName))
+# print("uiCharaPattern: "+str(uiCharaPattern))
+# print("soundPattern: "+str(soundPattern)+"\n")
 
 def searchAndReplace(filePath):
    with open(filePath, 'r') as file:
