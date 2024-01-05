@@ -102,30 +102,32 @@ print("soundPattern: "+str(soundPattern)+"\n")
 # The Real Work!
 #====================================
 def updateSkin(root):
-    # Get all the files in the directory
-    files = os.listdir(root)
+    
+        # Get all the files in the directory
+        files = os.listdir(root)
 
-    for _, file in enumerate(files):
-        # print("\nThe file is: "+file)
+        for _, file in enumerate(files):
+            # print("\nThe file is: "+file)
 
-        # Check if each file is one that needs to be updates
-        if oldFolderPattern.match(file):
-            os.rename(os.path.join(root, file), os.path.join(root, newFolderName))
-            print("-> The file \""+file+"\""+" has been renamed to: \""+newFolderName+"\"")
-        
-        elif uiCharaPattern.match(file[-7:]):
-            os.rename(os.path.join(root, file), os.path.join(root, file[:-7]+"0"+newSlot+".bntx"))
-            print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-7]+"0"+newSlot+".bntx")
+            # Check if each file is one that needs to be updates
+            if oldFolderPattern.fullmatch(file):
+                os.rename(os.path.join(root, file), os.path.join(root, newFolderName))
+                print("-> The file \""+file+"\""+" has been renamed to: \""+newFolderName+"\"")
+            
+            elif uiCharaPattern.match(file[-7:]):
+                os.rename(os.path.join(root, file), os.path.join(root, file[:-7]+"0"+newSlot+".bntx"))
+                print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-7]+"0"+newSlot+".bntx"+"\"")
 
-        elif soundPattern.match(file[-13:]):
-            print("-> The file named \""+file+"\""+" will now be renamed to: \""+"The thing that it should be"+"\"")
+            elif soundPattern.match(file[-13:]):
+                os.rename(os.path.join(root, file), os.path.join(root, file[:-13]+"c0"+newSlot+".nus3audio"))
+                print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-13]+"c0"+newSlot+".nus3audio"+"\"")
 
-        # ADD THE CONFIG FILE
+            # ADD THE CONFIG FILE
 
-        else:
-            if os.path.isdir(os.path.join(root, file)):
-                # print("This file: ["+file+"] is a directory... Time to hop in")
-                updateSkin(os.path.join(root, file))
+            else:
+                if os.path.isdir(os.path.join(root, file)):
+                    # print("This file: ["+file+"] is a directory... Time to hop in")
+                    updateSkin(os.path.join(root, file))
         
 
 updateSkin(path)
@@ -137,3 +139,4 @@ print("========================================")
 input("\nPress enter to end this script")
 
 # TODO: Update the name of the folder too if it has the c0x in it
+# TODO: Add Error Handling for exceptions
