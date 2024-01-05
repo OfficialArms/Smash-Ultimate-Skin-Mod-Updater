@@ -3,7 +3,10 @@
 # be updated.
 # 
 # Currently this file only supports the following root folders & files:
-# NULL
+# 1 - Character Folders
+# 2 - UI Files       
+# 3 - Sound Files    
+# 4 - Config File 
 
 
 import os
@@ -16,15 +19,6 @@ pattern = re.compile("[0-7]")
 currentSlot = None
 newSlot = None
 autoRename = False
-
-
-# Functions
-#=============================================================
-def getNewSlotName(slotName):
-    return slotName.replace("c0"+currentSlot, "c0"+newSlot)
-
-
-
 
 # Main
 #============================================================
@@ -56,10 +50,10 @@ while newSlot == None:
 
 # All switch conditions
 # 
-# 1 - Character Folder: The folder is named c0x
-# 2 - UI Files:         The file ends with _0x.bntx
-# 3 - Sound Files:      The file ends in _c0x
-# 4 - Config File:      The config.json
+# 1 - Character Folders: The folder is named c0x
+# 2 - UI Files:          The file ends with _0x.bntx
+# 3 - Sound Files:       The file ends in _c0x.nus3audio
+# 4 - Config File:       The config.json
 
 # Note. If it's a folder with the c0x name you don't need to go deeper
 # Bonus Note: Kind of an unnecessary optimization tbh
@@ -119,15 +113,15 @@ def updateSkin(root):
 
             # Check if each file is one that needs to be updates
             if oldFolderPattern.fullmatch(file):
-                # os.rename(os.path.join(root, file), os.path.join(root, newFolderName))
+                os.rename(os.path.join(root, file), os.path.join(root, newFolderName))
                 print("-> The file \""+file+"\""+" has been renamed to: \""+newFolderName+"\"")
             
             elif uiCharaPattern.match(file[-7:]):
-                # os.rename(os.path.join(root, file), os.path.join(root, file[:-7]+"0"+newSlot+".bntx"))
+                os.rename(os.path.join(root, file), os.path.join(root, file[:-7]+"0"+newSlot+".bntx"))
                 print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-7]+"0"+newSlot+".bntx"+"\"")
 
             elif soundPattern.match(file[-13:]):
-                # os.rename(os.path.join(root, file), os.path.join(root, file[:-13]+"c0"+newSlot+".nus3audio"))
+                os.rename(os.path.join(root, file), os.path.join(root, file[:-13]+"c0"+newSlot+".nus3audio"))
                 print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-13]+"c0"+newSlot+".nus3audio"+"\"")
 
             elif file == "config.json":
