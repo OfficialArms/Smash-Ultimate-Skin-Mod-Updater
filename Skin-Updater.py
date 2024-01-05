@@ -99,6 +99,14 @@ print("newFolderName: "+str(newFolderName))
 print("uiCharaPattern: "+str(uiCharaPattern))
 print("soundPattern: "+str(soundPattern)+"\n")
 
+def searchAndReplace(filePath):
+   with open(filePath, 'r') as file:
+      fileContents = file.read()
+      newContents = re.sub(oldFolderPattern, newFolderName, fileContents)
+
+   with open(filePath, 'w') as file:
+      file.write(newContents)
+
 # The Real Work!
 #====================================
 def updateSkin(root):
@@ -111,18 +119,20 @@ def updateSkin(root):
 
             # Check if each file is one that needs to be updates
             if oldFolderPattern.fullmatch(file):
-                os.rename(os.path.join(root, file), os.path.join(root, newFolderName))
+                # os.rename(os.path.join(root, file), os.path.join(root, newFolderName))
                 print("-> The file \""+file+"\""+" has been renamed to: \""+newFolderName+"\"")
             
             elif uiCharaPattern.match(file[-7:]):
-                os.rename(os.path.join(root, file), os.path.join(root, file[:-7]+"0"+newSlot+".bntx"))
+                # os.rename(os.path.join(root, file), os.path.join(root, file[:-7]+"0"+newSlot+".bntx"))
                 print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-7]+"0"+newSlot+".bntx"+"\"")
 
             elif soundPattern.match(file[-13:]):
-                os.rename(os.path.join(root, file), os.path.join(root, file[:-13]+"c0"+newSlot+".nus3audio"))
+                # os.rename(os.path.join(root, file), os.path.join(root, file[:-13]+"c0"+newSlot+".nus3audio"))
                 print("-> The file \""+file+"\""+" has been renamed to: \""+file[:-13]+"c0"+newSlot+".nus3audio"+"\"")
 
-            # ADD THE CONFIG FILE
+            elif file == "config.json":
+                searchAndReplace(os.path.join(root, file))
+                print("Updated config.json file")
 
             else:
                 if os.path.isdir(os.path.join(root, file)):
