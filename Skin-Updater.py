@@ -38,7 +38,7 @@ if path == "":
     path = "./"
 
 while currentSlot == None:
-    currentSlot = input("What skin slot do you want to update? [Expected Value Between 0-7] \nLeave blank for auto (Don't do this if there is more than 1 skin!)\n")
+    currentSlot = input("\nWhat skin slot do you want to update? [Expected Value Between 0-7] \n ~Note: Leave blank for auto (Don't do this if there is more than 1 skin!)\n")
     if currentSlot != "" and not bool(pattern.match(currentSlot)):
         print("\""+currentSlot+"\" is not valid input. Must be a number between [0-7], or empty\n")
         currentSlot = None
@@ -46,7 +46,7 @@ while currentSlot == None:
 autoRename = currentSlot == ""
 
 while newSlot == None:
-    newSlot = input("What skin slot do you want this skin to move to? [Expected Value Between 0-7]\n")
+    newSlot = input("\nWhat skin slot do you want this skin to move to? [Expected Value Between 0-7]\n")
     if not bool(pattern.match(newSlot)):
         print("\""+newSlot+"\" is not valid input. Must be a number between [0-7]\n")
         newSlot = None
@@ -55,9 +55,6 @@ while newSlot == None:
 print("[***DEBUG***]:\nPath: "+path)
 print("currentSlot: "+currentSlot)
 print("newSlot: "+newSlot)
-
-print("The files in this folder are:")
-print( os.listdir("./"))
 
 # Manipulate each folder
 #==============================================================
@@ -80,10 +77,20 @@ newFolderName = "c0"+newSlot
 
 configName = "config.json"
 
-# Note: only apply these to the last 7 characters of the file name
-uiCharaPattern = re.compile("0\d\.bntx") 
-soundPattern = re.compile("c0\d\.nus3audio")
+# Note: only apply these to the last 7 and 13 characters of the file names, respectively
+if autoRename: 
+    uiCharaPattern = re.compile("0\d\.bntx")  
+else:
+    uiCharaPattern = re.compile("0"+oldFolderName+".bntx")
+
+if autoRename:
+    soundPattern = re.compile("c0\d\.nus3audio") 
+else:  
+    uiCharaPattern = re.compile("c0"+oldFolderName+".nus3audio")
+
 
 print("\n========================================")
 print("            End of Program")
 print("========================================")
+
+input("\nPress enter to end this script")
